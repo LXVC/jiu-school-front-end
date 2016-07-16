@@ -1,18 +1,49 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
+import TabNavigator from 'react-native-tab-navigator'
+let Item = TabNavigator.Item
+
+import variables from './variables'
+import Home from './home/Home'
+import Affiche from './affiche/Affiche'
+
+
  export default class Main extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      selectedIndex: 0
+    }
+  }
+
+  _renderItem(index) {
+    switch (index) {
+      case 0:
+        return <Home/>
+        break;
+      default:
+        return <Affiche/>
+    }
   }
 
   render() {
     return (
-      <View style={{marginTop:40}}>
-        <Text>
-          主页
-        </Text>
-      </View>
+      <TabNavigator>
+          {
+            variables.tabName.map((name, index) => {
+              return (
+                <Item title={name} key={index}
+                  selected={this.state.selectedIndex === index}
+                  onPress={() => {
+                    this.setState({selectedIndex: index})
+                  }}>
+                    {this._renderItem(index)}
+                </Item>
+              )
+            })
+          }
+      </TabNavigator>
     )
   }
 }

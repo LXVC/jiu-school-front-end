@@ -13,7 +13,6 @@ import {
   AsyncStorage
 } from 'react-native'
 
-import { Area, AreaList, scene, Side, SceneStatus } from 'scene-router'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import Login from './component/account/Login'
@@ -23,41 +22,49 @@ class App extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      logined: false
+      logined: 0
     }
     // AsyncStorage.clear()
   }
 
-  componentWillMount() {
-    AsyncStorage.getItem('user', (err, result) => {
-      if (err) {
-        console.log('get error')
-      } else {
-        console.log(result)
-        this.setState({
-          logined: Boolean(result)
-        })
-      }
-    })
+  async componentWillMount() {
+    let user = await AsyncStorage.getItem('user')
+    if (user) {
+      this.setState({
+        logined: 2
+      })
+    } else {
+      this.setState({
+        logined: 1
+      })
+    }
   }
 
   componentDidMount() {
     RCTDeviceEventEmitter.addListener('login', () => {
       this.setState({
-        logined: true
+        logined: 2
       })
     })
   }
 
   render() {
-    if (this.state.logined) {
-      return (
-        <Layout/>
-      )
-    } else {
-      return (
-        <Login/>
-      )
+    switch (this.state.logined) {
+      case 0:
+        return (
+          <View style={{flex:1,justifyContent:'center'}}>
+            <Text>
+              检查登录状态中。。。
+            </Text>
+          </View>
+        )
+        break;
+      case 1:
+        return <Login/>
+        break;
+      case 2:
+        return <Layout/>
+        break;
     }
   }
 }

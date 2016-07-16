@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, AsyncStorage } from 'react-native'
-import { Area, AreaList, scene, Side, SceneStatus } from 'scene-router'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 
 export default class Login extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   _onClick() {
