@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import TabNavigator from 'react-native-tab-navigator'
 let Item = TabNavigator.Item
@@ -13,8 +14,23 @@ import Affiche from './affiche/Affiche'
   constructor(props, context) {
     super(props, context)
     this.state = {
-      selectedIndex: 0
+      selectedIndex: 0,
+      tabBarHeight: 49
     }
+  }
+
+  componentDidMount() {
+    RCTDeviceEventEmitter.addListener('hide', () => {
+      this.setState({
+        tabBarHeight: 0
+      })
+    })
+
+    RCTDeviceEventEmitter.addListener('show', () => {
+      this.setState({
+        tabBarHeight: 49
+      })
+    })
   }
 
   _renderItem(index) {
@@ -29,7 +45,9 @@ import Affiche from './affiche/Affiche'
 
   render() {
     return (
-      <TabNavigator>
+      <TabNavigator
+        tabBarStyle={{ height: this.state.tabBarHeight, overflow: 'hidden' }}
+        sceneStyle={{ paddingBottom: this.state.tabBarHeight }}>
           {
             variables.tabName.map((name, index) => {
               return (
