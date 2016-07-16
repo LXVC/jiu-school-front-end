@@ -4,50 +4,66 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  AsyncStorage
+} from 'react-native'
 
-class teacher extends Component {
+import { Area, AreaList, scene, Side, SceneStatus } from 'scene-router'
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+
+import Login from './component/account/Login'
+import Layout from './component/Layout'
+
+class App extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      logined: false
+    }
+    // AsyncStorage.clear()
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('user', (err, result) => {
+      if (err) {
+        console.log('get error')
+      } else {
+        console.log(result)
+        this.setState({
+          logined: Boolean(result)
+        })
+      }
+    })
+  }
+
+  componentDidMount() {
+    RCTDeviceEventEmitter.addListener('login', () => {
+      this.setState({
+        logined: true
+      })
+    })
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+    if (this.state.logined) {
+      return (
+        <Layout/>
+      )
+    } else {
+      return (
+        <Login/>
+      )
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
 });
 
-AppRegistry.registerComponent('teacher', () => teacher);
+AppRegistry.registerComponent('teacher', () => App);
