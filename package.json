@@ -6,8 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "frisbee": "^1.1.0",
     "react": "15.2.1",
     "react-native": "^0.29.1",
+    "react-native-navbar": "^1.5.0",
     "react-native-tab-navigator": "^0.3.2",
     "scene-router": "^1.1.0"
   }
