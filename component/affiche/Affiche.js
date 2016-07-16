@@ -17,7 +17,6 @@ export default class Affiche extends Component{
     }
     return (
       <View style={{flex:1}}>
-        <Nav title={{title: "公告"}} leftButton={left}></Nav>
       </View>
     )
   }

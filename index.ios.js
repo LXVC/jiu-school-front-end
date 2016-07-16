@@ -12,9 +12,11 @@ import {
   View,
   AsyncStorage
 } from 'react-native'
-
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
+import Router from 'react-native-simple-router'
+
+import variables from './component/variables'
 import Login from './component/account/Login'
 import Layout from './component/Layout'
 
@@ -49,6 +51,10 @@ class App extends Component {
   }
 
   render() {
+    let firstRoute = {
+      name: 'Layout',
+      component: Layout
+    }
     switch (this.state.logined) {
       case 0:
         return (
@@ -63,7 +69,16 @@ class App extends Component {
         return <Login/>
         break;
       case 2:
-        return <Layout/>
+        return (
+          <Router
+            firstRoute={firstRoute}
+            headerStyle={{backgroundColor:variables.mainColor,top:0}}
+            hideNavigationBar={true}
+            noStatusBar={true}
+            handleBackAndroid={true}
+            bgStyle={{backgroundColor:'#ebebeb'}}>
+          </Router>
+        )
         break;
     }
   }

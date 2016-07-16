@@ -14,53 +14,36 @@ import Affiche from './affiche/Affiche'
   constructor(props, context) {
     super(props, context)
     this.state = {
-      selectedIndex: 0,
-      tabBarHeight: 49
+      selectedIndex: 0
     }
-  }
-
-  componentDidMount() {
-    RCTDeviceEventEmitter.addListener('hide', () => {
-      this.setState({
-        tabBarHeight: 0
-      })
-    })
-
-    RCTDeviceEventEmitter.addListener('show', () => {
-      this.setState({
-        tabBarHeight: 49
-      })
-    })
   }
 
   _renderItem(index) {
     switch (index) {
       case 0:
-        return <Home/>
+        return <Home toRoute={this.props.toRoute}/>
         break;
       default:
-        return <Affiche/>
+        return <Affiche toRoute={this.props.toRoute}/>
     }
   }
 
   render() {
     return (
-      <TabNavigator
-        tabBarStyle={{ height: this.state.tabBarHeight, overflow: 'hidden' }}
-        sceneStyle={{ paddingBottom: this.state.tabBarHeight }}>
-          {
-            variables.tabName.map((name, index) => {
-              return (
-                <Item title={name} key={index}
-                  selected={this.state.selectedIndex === index}
-                  onPress={() => {
-                    this.setState({selectedIndex: index})
-                  }}>
-                    {this._renderItem(index)}
-                </Item>
-              )
-            })
-          }
+      <TabNavigator>
+        {
+          variables.tabName.map((name, index) => {
+            return (
+              <Item title={name} key={index}
+                selected={this.state.selectedIndex === index}
+                onPress={() => {
+                  this.setState({selectedIndex: index})
+                }}>
+                {this._renderItem(index)}
+              </Item>
+            )
+          })
+        }
       </TabNavigator>
     )
   }
