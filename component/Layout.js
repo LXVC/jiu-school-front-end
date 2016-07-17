@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import TabNavigator from 'react-native-tab-navigator'
@@ -32,10 +32,14 @@ import Affiche from './affiche/Affiche'
     return (
       <TabNavigator>
         {
-          variables.tabName.map((name, index) => {
+          variables.tabName.map((item, index) => {
+            console.log(item.img);
+            // let img = require(item.img)
             return (
-              <Item title={name} key={index}
+              <Item
+                title={item.name} key={index}
                 selected={this.state.selectedIndex === index}
+                renderIcon={() => <Image source={item.img}/>}
                 onPress={() => {
                   this.setState({selectedIndex: index})
                 }}>

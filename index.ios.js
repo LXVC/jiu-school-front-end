@@ -32,13 +32,13 @@ class App extends Component {
   async componentWillMount() {
     let user = await AsyncStorage.getItem('user')
     if (user) {
-      this.setState({
-        logined: 2
-      })
+      setTimeout(() => {
+        this.setState( {logined: 2} )
+      }, 300)
     } else {
-      this.setState({
-        logined: 1
-      })
+      setTimeout(() => {
+        this.setState( {logined: 1} )
+      }, 300)
     }
   }
 
