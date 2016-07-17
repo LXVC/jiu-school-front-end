@@ -14,7 +14,7 @@ export default class NavDefault extends Component {
   render() {
     return (
       <Nav
-        title={{title:  this.props.title}}
+        title={{title:  this.props.title,tintColor: '#FFF'}}
         style={{backgroundColor:variables.mainColor}}
         statusBar={{tintColor:variables.mainColor}}>
       </Nav>
