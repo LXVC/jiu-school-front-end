@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, Navigator } from 'react-native'
+import { View, Text,  } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import Nav from 'react-native-navbar'
 import Router from 'react-native-simple-router'
 
 import variables from '../variables'
+import NavDefault from '../navs/NavDefault'
 import HomeWork from './work/Work'
 
 export default class Home extends Component {
@@ -21,13 +22,10 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View style={{flex:1}}>
-        <Nav title={{title:"首页"}}
-          style={{backgroundColor:variables.mainColor}}
-          statusBar={{tintColor:variables.mainColor}}>
-        </Nav>
+      <View style={{flex:1,backgroundColor:'#FFF'}}>
+        <NavDefault title="首页"></NavDefault>
         <Text onPress={() => this._onClick()}>
-          Home
+            Home
         </Text>
       </View>
     )

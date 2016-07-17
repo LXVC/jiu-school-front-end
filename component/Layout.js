@@ -8,7 +8,8 @@ let Item = TabNavigator.Item
 import variables from './variables'
 import Home from './home/Home'
 import Affiche from './affiche/Affiche'
-
+import School from './shoool/School'
+import Me from './me/Me'
 
  export default class Main extends Component {
   constructor(props, context) {
@@ -23,8 +24,15 @@ import Affiche from './affiche/Affiche'
       case 0:
         return <Home toRoute={this.props.toRoute}/>
         break;
-      default:
+      case 1:
         return <Affiche toRoute={this.props.toRoute}/>
+        break;
+      case 2:
+        return <School toRoute={this.props.toRoute}/>
+        break;
+      case 3:
+        return <Me toRoute={this.props.toRoute}/>
+        break;
     }
   }
 
@@ -33,8 +41,6 @@ import Affiche from './affiche/Affiche'
       <TabNavigator>
         {
           variables.tabName.map((item, index) => {
-            console.log(item.img);
-            // let img = require(item.img)
             return (
               <Item
                 title={item.name} key={index}
