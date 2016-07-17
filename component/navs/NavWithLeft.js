@@ -1,5 +1,5 @@
 import React, {Component} from 'React'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 import Nav from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/FontAwesome'

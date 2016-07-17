@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, AsyncStorage } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
+import Button from 'react-native-button'
 
 export default class Login extends Component {
   constructor(props) {
@@ -14,6 +15,11 @@ export default class Login extends Component {
     })
     RCTDeviceEventEmitter.emit('login')
   }
+
+  componentDidMount() {
+    
+  }
+
 
   render() {
     return (

@@ -19,5 +19,5 @@ export default {
     img: require('../assets/USER.png')
   }],
   mainColor: '#53C2E0',
-  pixel: 1 / PixelRatio.get()
+  pixel: PixelRatio.get()
 }
