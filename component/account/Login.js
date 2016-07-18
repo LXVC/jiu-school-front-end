@@ -27,7 +27,7 @@ export default class Login extends Component {
         this.props.resetToRoute({
           name: "Layout",
           component: Layout,
-          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
+          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
         })
       }
     }

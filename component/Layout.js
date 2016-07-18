@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Navigator } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import TabNavigator from 'react-native-tab-navigator'
 let Item = TabNavigator.Item
 
 import variables from './variables'
+import api from '../netWork/api'
 import Home from './home/Home'
 import Affiche from './affiche/Affiche'
 import School from './shoool/School'
 import Me from './me/Me'
 
- export default class Main extends Component {
+
+ export default class Layout extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -33,6 +35,13 @@ import Me from './me/Me'
       case 3:
         return <Me toRoute={this.props.toRoute}/>
         break;
+    }
+  }
+
+  async componentWillMount() {
+    let res = await api.getUsers()
+    if (res.ok) {
+      console.log(res.body);
     }
   }
 
