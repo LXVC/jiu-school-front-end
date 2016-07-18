@@ -9,7 +9,6 @@ import HomeWork from './work/Work'
 export default class Home extends Component {
   constructor(props, context) {
     super(props, context)
-    console.log(variables.pixel);
   }
 
   _onClick() {
