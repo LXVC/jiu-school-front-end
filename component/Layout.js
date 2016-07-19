@@ -39,9 +39,20 @@ import Me from './me/Me'
   }
 
   async componentWillMount() {
-    let res = await api.getUsers()
-    if (res.ok) {
-      console.log(res.body);
+    try {
+      let res = await api.getUsers()
+      if (res.err) throw res.err
+      if (res.ok) {
+        console.log(res.body);
+      } else {
+        alert('获取数据失败')
+      }
+    } catch (e) {
+      if (e.message === 'Network request failed') {
+        alert('请求失败')
+      }
+    } finally {
+
     }
   }
 

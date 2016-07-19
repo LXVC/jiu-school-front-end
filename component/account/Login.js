@@ -20,15 +20,27 @@ export default class Login extends Component {
   async _onClick() {
     if (!this.state.once) {
       this.setState({once: true})
-      let res = await api.login('qzw', 'root')
-      console.log(res)
-      if (res.ok) {
-        AsyncStorage.setItem('token', res.body.token)
-        this.props.resetToRoute({
-          name: "Layout",
-          component: Layout,
-          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
-        })
+      try {
+        let res = await api.login('qzw', 'root')
+        if (res.err) throw res.err
+        console.log(res)
+        if (res.ok) {
+          AsyncStorage.setItem('token', res.body.token)
+          this.props.resetToRoute({
+            name: "Layout",
+            component: Layout,
+            sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+          })
+        } else {
+          alert('帐号验证失败')
+        }
+      } catch (e) {
+        if (e.message === 'Network request failed') {
+          alert('请求失败')
+        }
+        this.setState({once: false})
+      } finally {
+
       }
     }
   }
