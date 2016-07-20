@@ -26,6 +26,7 @@ export default class Login extends Component {
         console.log(res)
         if (res.ok) {
           AsyncStorage.setItem('token', res.body.token)
+          AsyncStorage.setItem('id', res.body.id + '')
           this.props.resetToRoute({
             name: "Layout",
             component: Layout,
@@ -44,11 +45,6 @@ export default class Login extends Component {
       }
     }
   }
-
-  componentDidMount() {
-
-  }
-
 
   render() {
     return (

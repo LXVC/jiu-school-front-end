@@ -25,6 +25,22 @@ async function createApi(needToken=true) {
   return api
 }
 
+async function resolveError(func, args) {
+  try {
+    let res = await func(args)
+    if (res.err) throw res.err
+    return res
+  } catch (e) {
+    if (e.message === 'Network request failed') {
+      alert('网络请求失败')
+    } else {
+      alert(e.message)
+    }
+    return {ok: false}
+  } finally {
+
+  }
+}
 
 async function login(username, password) {
   let api = await createApi(false)
@@ -37,14 +53,23 @@ async function login(username, password) {
   return res
 }
 
-async function getUsers() {
+async function getUser() {
+  let id = await AsyncStorage.getItem('id')
   let api = await createApi()
-  let res = await api.get('/users/')
+  let res = await api.get(`/users/${id}/`)
   return res
 }
 
 
+async function g() {
+  let api = await createApi()
+  let id = await AsyncStorage.getItem('id')
+  let res = await resolveError(api.get, `/users/${id}/`)
+  return res
+}
+
 export default {
   login,
-  getUsers
+  getUser,
+  g
 }
