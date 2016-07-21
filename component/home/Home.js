@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,  } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import variables from '../variables'
@@ -11,20 +11,85 @@ export default class Home extends Component {
     super(props, context)
   }
 
-  _onClick() {
-    this.props.toRoute({
-      component: HomeWork
-    })
+  _onClick(name) {
+    switch (name) {
+      case '做作业':
+        this.props.toRoute({
+          component: HomeWork
+        })
+        break;
+      default:
+        return
+    }
+  }
+
+  _renderItem(index) {
+    return (
+      variables.homeItems[index].map((item, index) => {
+        return (
+          <TouchableOpacity key={index} style={styles.item} onPress={() => {this._onClick(item.name)}}>
+            <View style={[{backgroundColor: item.backgroundColor}, styles.circle]}>
+              <Image source={item.icon} style={{tintColor:'#FFF'}}/>
+            </View>
+            <Text style={styles.itemTitle}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )
+      })
+    )
+  }
+
+  _renderRow() {
+    return (
+      [0, 1, 2].map((item) => {
+        return (
+          <View style={styles.row} key={item}>
+            {this._renderItem(item)}
+          </View>
+        )
+      })
+    )
   }
 
   render() {
     return (
-      <View style={{flex:1,backgroundColor:'#FFF'}}>
+      <View style={{flex:1,backgroundColor:'#fafafa'}}>
         <Nav title="首页"></Nav>
-        <Text onPress={() => this._onClick()}>
-            Home
-        </Text>
+        <View style={styles.banner}>
+        </View>
+        {this._renderRow()}
       </View>
     )
   }
+
 }
+
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: 'yellow',
+    height: 96 * variables.pixel
+  },
+  row: {
+    flexDirection: 'row',
+    marginTop: 7.5 * variables.pixel
+  },
+  item: {
+    flex: 1,
+    alignItems: 'center',
+    height: (29 * variables.pixel) + 40
+  },
+  itemTitle: {
+    color: '#737070',
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  circle: {
+    width: 30 * (variables.pixel + 0.5),
+    height: 30 * (variables.pixel + 0.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30 * (variables.pixel + 0.5) / 2,
+    marginBottom: 4 * variables.pixel
+  }
+})

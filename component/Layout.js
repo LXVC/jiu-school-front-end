@@ -66,7 +66,8 @@ import Me from './me/Me'
               <Item
                 title={item.name} key={index}
                 selected={this.state.selectedIndex === index}
-                renderIcon={() => <Image source={item.img}/>}
+                renderIcon={() => <Image source={item.img} style={{tintColor: '#888888'}}/>}
+                renderSelectedIcon={() => <Image source={item.img} style={{tintColor: variables.mainColor}}/>}
                 onPress={() => {
                   this.setState({selectedIndex: index})
                 }}>
