@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
-import NavDefault from '../navs/NavDefault'
+import Nav from '../navs/NavDefault'
+import Details from './Details'
 
 export default class Affiche extends Component{
   constructor(props) {
     super(props)
   }
 
+  _onClick() {
+    this.props.toRoute({
+      component: Details
+    })
+  }
+
   render() {
     return (
       <View style={{flex:1}}>
-        <NavDefault title="公告"></NavDefault>
+        <Nav title="公告"></Nav>
+        <Text onPress={() => {this._onClick()}}>
+          go
+        </Text>
       </View>
     )
   }
