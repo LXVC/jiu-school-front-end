@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   left: {
     flex: 1,
     width: 70,
-    paddingLeft: 8,
-    paddingBottom: 8,
+    paddingLeft: 10,
   }
 })
