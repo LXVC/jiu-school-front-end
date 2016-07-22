@@ -1,5 +1,5 @@
 import React, {Component} from 'React'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 
 import Nav from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -15,7 +15,7 @@ export default class NavWithLeft extends Component {
       <Nav title={{title:this.props.title,tintColor:'#FFF'}}
         leftButton={
           <TouchableOpacity
-            style={{flex:1,width:50,paddingLeft:8}}
+            style={styles.left}
             onPress={() => {this.props.toBack()}}>
             <Icon
               name="angle-left"
@@ -30,3 +30,12 @@ export default class NavWithLeft extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  left: {
+    flex: 1,
+    width: 70,
+    paddingLeft: 8,
+    paddingBottom: 8,
+  }
+})

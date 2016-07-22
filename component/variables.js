@@ -19,6 +19,7 @@ export default {
     img: require('../assets/USER.png')
   }],
   mainColor: '#53C2E0',
+  textColor: '#737070',
   pixel: PixelRatio.get(),
   homeItems: [[{
     name: '做作业',

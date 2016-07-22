@@ -17,15 +17,13 @@ export default class Wellome extends Component{
         this.props.resetToRoute({
         name: "Layout",
         component: Layout,
-        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump
       })}, 500)
     } else {
       setTimeout(() => {
         this.props.resetToRoute({
         name: "Login",
         component: Login,
-        sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump
-      })}, 1000)
+      })}, 500)
     }
   }
 

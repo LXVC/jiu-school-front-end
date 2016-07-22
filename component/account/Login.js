@@ -30,7 +30,6 @@ export default class Login extends Component {
           this.props.resetToRoute({
             name: "Layout",
             component: Layout,
-            sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
           })
         } else {
           alert('帐号验证失败')

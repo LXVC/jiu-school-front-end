@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view'
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 
 import variables from '../variables'
 import Nav from '../navs/NavDefault'
@@ -19,10 +19,10 @@ export default class School extends Component{
       <View style={{flex:1}}>
         <Nav title="名校名师"></Nav>
         <ScrollableTabView
-          renderTabBar={() => <DefaultTabBar/>}
+          renderTabBar={() => <ScrollableTabBar/>}
           tabBarUnderlineColor={variables.mainColor}
           tabBarActiveTextColor={variables.mainColor}
-          tabBarInactiveTextColor='#737070'
+          tabBarInactiveTextColor={variables.textColor}
           tabBarTextStyle={{fontSize:16,fontWeight:'bold'}}
           tabBarBackgroundColor='#FFF'>
           <View tabLabel='名校'>
@@ -44,16 +44,3 @@ export default class School extends Component{
     )
   }
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    backgroundColor: '#FFF'
-  },
-  tab: {
-    flex: 1,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})

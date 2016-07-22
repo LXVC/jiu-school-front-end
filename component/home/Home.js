@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import variables from '../variables'
@@ -56,9 +56,11 @@ export default class Home extends Component {
     return (
       <View style={{flex:1,backgroundColor:'#fafafa'}}>
         <Nav title="首页"></Nav>
-        <View style={styles.banner}>
-        </View>
-        {this._renderRow()}
+        <ScrollView>
+          <View style={styles.banner}>
+          </View>
+          {this._renderRow()}
+        </ScrollView>
       </View>
     )
   }
@@ -77,10 +79,9 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     alignItems: 'center',
-    // height: (29 * variables.pixel) + 40
   },
   itemTitle: {
-    color: '#737070',
+    color: variables.textColor,
     fontWeight: 'bold',
     fontSize: 16
   },
