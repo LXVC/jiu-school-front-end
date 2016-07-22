@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     alignItems: 'center',
-    height: (29 * variables.pixel) + 40
+    // height: (29 * variables.pixel) + 40
   },
   itemTitle: {
     color: '#737070',
