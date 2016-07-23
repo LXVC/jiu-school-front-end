@@ -24,19 +24,18 @@ export default class Login extends Component {
         let res = await api.login('qzw', 'root')
         if (res.err) throw res.err
         console.log(res)
-        if (res.ok) {
-          AsyncStorage.setItem('token', res.body.token)
-          AsyncStorage.setItem('id', res.body.id + '')
-          this.props.resetToRoute({
-            name: "Layout",
-            component: Layout,
-          })
-        } else {
-          alert('帐号验证失败')
-        }
+        AsyncStorage.setItem('token', res.body.token)
+        AsyncStorage.setItem('id', res.body.id + '')
+        this.props.resetToRoute({
+          name: "Layout",
+          component: Layout,
+        })
       } catch (e) {
         if (e.message === 'Network request failed') {
-          alert('请求失败')
+          alert('网络请求失败')
+        }
+        if (e.message === variables.errorAuth) {
+          alert('帐号或者密码错误！')
         }
         this.setState({once: false})
       } finally {

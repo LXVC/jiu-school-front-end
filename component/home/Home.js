@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginTop: 7.5 * variables.pixel
+    marginTop: 7.5 * variables.pixel,
   },
   item: {
     flex: 1,

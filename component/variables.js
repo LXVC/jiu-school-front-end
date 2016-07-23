@@ -5,6 +5,7 @@ let {width, height} = Dimensions.get('window')
 export default {
   width,
   height,
+  errorAuth: 'auth error',
   tabName: [{
     name: '首页',
     img: require('../assets/HOME.png')

@@ -1,12 +1,14 @@
 import Frisbee from 'frisbee'
 import { AsyncStorage } from 'react-native'
 
+import variables from '../component/variables'
+
 async function createApi(needToken=true) {
   let token = await AsyncStorage.getItem('token')
   let api = null
   if (needToken) {
     api = new Frisbee({
-      baseURI: 'http://192.168.1.5:8000/api/v1',
+      baseURI: 'http://192.168.1.11:8000/api/v1',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -15,7 +17,7 @@ async function createApi(needToken=true) {
     })
   } else {
     api = new Frisbee({
-      baseURI: 'http://192.168.1.5:8000/api/v1',
+      baseURI: 'http://192.168.1.11:8000/api/v1',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -50,6 +52,9 @@ async function login(username, password) {
       password: password
     }
   })
+  if (res.status === 400) {
+    throw Error(variables.errorAuth)
+  }
   return res
 }
 
@@ -57,6 +62,9 @@ async function getUser() {
   let id = await AsyncStorage.getItem('id')
   let api = await createApi()
   let res = await api.get(`/users/${id}/`)
+  if (res.status === 401) {
+    throw Error(variables.errorAuth)
+  }
   return res
 }
 

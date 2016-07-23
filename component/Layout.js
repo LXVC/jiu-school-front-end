@@ -11,6 +11,7 @@ import Home from './home/Home'
 import Affiche from './affiche/Affiche'
 import School from './shoool/School'
 import Me from './me/Me'
+import Login from './account/Login'
 
 
  export default class Layout extends Component {
@@ -42,15 +43,16 @@ import Me from './me/Me'
     try {
       let res = await api.getUser()
       if (res.err) throw res.err
-      if (res.ok) {
-        console.log(res.body)
-      } else {
-        console.log(res)
-        alert('获取数据失败')
-      }
+      console.log(res)
     } catch (e) {
       if (e.message === 'Network request failed') {
         alert('网络请求失败')
+      }
+      if (e.message === variables.errorAuth) {
+        alert('帐号验证失败，请重新登录！')
+        this.props.resetToRoute({
+          component: Login
+        })
       }
     } finally {
 

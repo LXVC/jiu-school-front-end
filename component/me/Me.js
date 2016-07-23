@@ -27,6 +27,8 @@ export default class Me extends Component{
             荣昌县初级中学九年级十班
           </Text>
         </View>
+        <View style={styles.down}>
+        </View>
       </View>
     )
   }
