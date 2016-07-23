@@ -68,6 +68,14 @@ async function getUser() {
   return res
 }
 
+async function getAffiches() {
+  let api = await createApi()
+  let res = await api.get('/notices/')
+  if (res.status === 401) {
+    throw Error(variables.errorAuth)
+  }
+  return res
+}
 
 async function g() {
   let api = await createApi()
@@ -79,5 +87,5 @@ async function g() {
 export default {
   login,
   getUser,
-  g
+  getAffiches,
 }
