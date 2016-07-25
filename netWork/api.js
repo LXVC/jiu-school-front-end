@@ -8,7 +8,7 @@ async function createApi(needToken=true) {
   let api = null
   if (needToken) {
     api = new Frisbee({
-      baseURI: 'http://192.168.1.11:8000/api/v1',
+      baseURI: 'http://123.206.42.148:8000//api/v1',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ async function createApi(needToken=true) {
     })
   } else {
     api = new Frisbee({
-      baseURI: 'http://192.168.1.11:8000/api/v1',
+      baseURI: 'http://123.206.42.148:8000/api/v1',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
