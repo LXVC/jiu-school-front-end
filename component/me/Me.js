@@ -1,12 +1,52 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import NavDefault from '../navs/NavDefault'
 import variables from '../variables'
 
+const list = [{
+  icon: require('../../assets/like.png'),
+  name: '我的信息'
+},{
+  icon: require('../../assets/8.png'),
+  name: '修改密码'
+},{
+  icon: require('../../assets/2.png'),
+  name: '申请激活码',
+  marginStyle: {marginBottom: 5 * variables.pixel},
+  borderStyle: {borderBottomColor:'#fafafa'}
+},{
+  icon: require('../../assets/alert-transparent.png'),
+  name: '意见反馈'
+},{
+  icon: require('../../assets/info-2.png'),
+  name: '关于',
+  borderStyle: {borderBottomColor:'#fafafa'}
+}]
+
 export default class Me extends Component{
   constructor(props) {
     super(props)
+  }
+
+  _renderItem() {
+    return list.map((item, index) => {
+      return (
+        <TouchableOpacity key={index}>
+          <View style={[styles.item,item.marginStyle]}>
+            <View style={[styles.container,item.borderStyle]}>
+              <Image
+                source={item.icon}
+                style={styles.icon}
+                resizeMode="contain"/>
+              <View style={styles.rightContainer}>
+                <Text style={styles.title}>{item.name}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      )
+    })
   }
 
   render() {
@@ -28,6 +68,7 @@ export default class Me extends Component{
           </Text>
         </View>
         <View style={styles.down}>
+          {this._renderItem()}
         </View>
       </View>
     )
@@ -66,5 +107,32 @@ const styles = StyleSheet.create({
   },
   role: {
     fontSize: 12
+  },
+  item: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: '#fafafa',
+  },
+  icon: {
+    width: 14 * variables.pixel
+  },
+  container: {
+   flex: 1,
+   flexDirection: 'row',
+   height: 50,
+   paddingLeft: 10,
+   alignItems: 'center',
+   borderBottomWidth: 1,
+   borderColor: '#cecece'
+  },
+  rightContainer: {
+    flex: 1,
+    paddingLeft: 20,
+    justifyContent: 'center',
+  },
+  title: {
+    color: variables.textColor,
+    fontSize: 18,
+    fontWeight: 'bold'
   },
 })

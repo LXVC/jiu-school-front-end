@@ -90,10 +90,6 @@ const styles = StyleSheet.create({
    borderBottomWidth: 1,
    borderColor: '#cecece'
   },
-  icon: {
-    // height : 20,
-    // width : 20,
-  },
   rightContainer: {
     flex: 1,
     paddingLeft: 20,
