@@ -4,10 +4,9 @@ import { View, Text, ListView, TouchableOpacity, StyleSheet,Image } from 'react-
 import Nav from '../navs/NavDefault'
 import Login from '../account/Login'
 import variables from '../variables'
-import api from '../../netWork/api'
+import Api from '../../netWork/api'
 import Details from './Details'
 
-// let notices = []
 export default class Affiche extends Component{
   constructor(props) {
     super(props)
@@ -20,20 +19,13 @@ export default class Affiche extends Component{
   }
 
   async componentWillMount() {
+    let api = new Api('/notices/')
     try {
-      let res = await api.getAffiches()
+      let res = await api.get()
       if (res.err) throw res.err
       this.setState({affiches: res.body})
     } catch (e) {
-      if (e.message === 'Network request failed') {
-        alert('网络请求失败')
-      }
-      if (e.message === variables.errorAuth) {
-        alert('帐号验证失败，请重新登录！')
-        this.props.resetToRoute({
-          component: Login
-        })
-      }
+      alert('affiches get error')
     } finally {
 
     }

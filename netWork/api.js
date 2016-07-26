@@ -1,31 +1,8 @@
-import Frisbee from 'frisbee'
 import { AsyncStorage } from 'react-native'
 
-import variables from '../component/variables'
+import Frisbee from 'frisbee'
 
-async function createApi(needToken=true) {
-  let token = await AsyncStorage.getItem('token')
-  let api = null
-  if (needToken) {
-    api = new Frisbee({
-      baseURI: 'http://123.206.42.148:8000//api/v1',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${token}`
-      }
-    })
-  } else {
-    api = new Frisbee({
-      baseURI: 'http://123.206.42.148:8000/api/v1',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
-  }
-  return api
-}
+import variables from '../component/variables'
 
 async function resolveError(func, args) {
   try {
@@ -44,48 +21,106 @@ async function resolveError(func, args) {
   }
 }
 
-async function login(username, password) {
-  let api = await createApi(false)
-  let res = await api.post('/get-token/', {
-    body: {
-      username: username,
-      password: password
+export default class Api {
+
+  constructor(url, needToken=true, criteria={}) {
+    this.needToken = needToken
+    this.url = url
+    this.criteria = criteria
+  }
+
+  async getToken() {
+    const ret = await AsyncStorage.getItem('token')
+    return ret
+  }
+
+  async setToken(val) {
+    AsyncStorage.setItem('token', val)
+  }
+
+  async getId() {
+    const ret = await AsyncStorage.getItem('id')
+    return ret
+  }
+
+  setId(val) {
+    AsyncStorage.setItem('id', val)
+  }
+
+  async getVersion() {
+    const ret = await AsyncStorage.getItem('version')
+    return ret
+  }
+
+  setVersion(val) {
+    AsyncStorage.setItem('version', val)
+  }
+
+  _buildQuery(criteria) {
+    return Object.keys(criteria).map(function(key) {
+      return [key, criteria[key]].map(encodeURIComponent).join('=')
+    }).join('&')
+  }
+
+  async _createApi(needToken) {
+    let token = await this.getToken()
+    let api = null
+    if (this.needToken) {
+      api = new Frisbee({
+        baseURI: variables.baseURI,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`
+        }
+      })
+    } else {
+      api = new Frisbee({
+        baseURI: variables.baseURI,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
     }
-  })
-  if (res.status === 400) {
-    throw Error(variables.errorAuth)
+    return api
   }
-  return res
-}
 
-async function getUser() {
-  let id = await AsyncStorage.getItem('id')
-  let api = await createApi()
-  let res = await api.get(`/users/${id}/`)
-  if (res.status === 401) {
-    throw Error(variables.errorAuth)
+  async get() {
+    this.api = await this._createApi(this.needToken)
+    this.url = `${this.url}?${this._buildQuery(this.criteria)}`
+    const res = await this.api.get(this.url)
+    return res
   }
-  return res
-}
 
-async function getAffiches() {
-  let api = await createApi()
-  let res = await api.get('/notices/')
-  if (res.status === 401) {
-    throw Error(variables.errorAuth)
+  async post() {
+    this.api = await this._createApi(this.needToken)
+    const res = await this.api.post(this.url, {
+      body: this.criteria
+    })
+    return res
   }
-  return res
-}
 
-async function g() {
-  let api = await createApi()
-  let id = await AsyncStorage.getItem('id')
-  let res = await resolveError(api.get, `/users/${id}/`)
-  return res
-}
+  async put() {
+    this.api = await this._createApi(this.needToken)
+    const res = await this.api.put(this.url, {
+      body: this.criteria
+    })
+    return res
+  }
 
-export default {
-  login,
-  getUser,
-  getAffiches,
+  async patch() {
+    this.api = await this._createApi(this.needToken)
+    const res = await this.api.patch(this.url, {
+      body: this.criteria
+    })
+    return res
+  }
+
+  async del() {
+    this.api = await this._createApi(this.needToken)
+    const res = await this.api.del(this.url)
+    return res
+  }
+
 }

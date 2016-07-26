@@ -4,7 +4,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import Button from 'react-native-button'
 
-import api from '../../netWork/api'
+import Api from '../../netWork/api'
 import variables from '../variables'
 import Layout from '../Layout'
 
@@ -20,24 +20,22 @@ export default class Login extends Component {
   async _onClick() {
     if (!this.state.once) {
       this.setState({once: true})
+      let api = new Api('/get-token/', false , {
+        username: 'qzw',
+        password: 'qzw'
+      })
       try {
-        let res = await api.login('qzw', 'root')
+        let res = await api.post()
         if (res.err) throw res.err
         console.log(res)
-        AsyncStorage.setItem('token', res.body.token)
-        AsyncStorage.setItem('id', res.body.id + '')
+        api.setToken(res.body.token)
+        api.setId(res.body.id + '')
         this.props.resetToRoute({
-          name: "Layout",
-          component: Layout,
+          name: 'layout',
+          component: Layout
         })
       } catch (e) {
-        if (e.message === 'Network request failed') {
-          alert('网络请求失败')
-        }
-        if (e.message === variables.errorAuth) {
-          alert('帐号或者密码错误！')
-        }
-        this.setState({once: false})
+        alert('login err')
       } finally {
 
       }

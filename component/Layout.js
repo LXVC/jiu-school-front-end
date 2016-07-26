@@ -6,7 +6,7 @@ import TabNavigator from 'react-native-tab-navigator'
 let Item = TabNavigator.Item
 
 import variables from './variables'
-import api from '../netWork/api'
+import Api from '../netWork/api'
 import Home from './home/Home'
 import Affiche from './affiche/Affiche'
 import School from './shoool/School'
@@ -39,24 +39,8 @@ import Login from './account/Login'
     }
   }
 
-  async componentWillMount() {
-    try {
-      let res = await api.getUser()
-      if (res.err) throw res.err
-      console.log(res)
-    } catch (e) {
-      if (e.message === 'Network request failed') {
-        alert('网络请求失败')
-      }
-      if (e.message === variables.errorAuth) {
-        alert('帐号验证失败，请重新登录！')
-        this.props.resetToRoute({
-          component: Login
-        })
-      }
-    } finally {
-
-    }
+  componentWillMount() {
+    
   }
 
   render() {

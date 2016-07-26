@@ -29,7 +29,7 @@ class App extends Component {
         headerStyle={{backgroundColor:variables.mainColor,top:0}}
         hideNavigationBar={true}
         noStatusBar={true}
-        handleBackAndroid={true}
+        handleBackAndroid
         bgStyle={{backgroundColor:'#ebebeb'}}>
       </Router>
     )
