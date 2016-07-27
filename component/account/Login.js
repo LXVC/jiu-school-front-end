@@ -35,6 +35,7 @@ export default class Login extends Component {
           component: Layout
         })
       } catch (e) {
+        this.setState({once: false})
         alert('login err')
       } finally {
 

@@ -69,7 +69,7 @@ export default class Me extends Component{
           let res = await api.get()
           if (res.err) throw res.err
           if (res.body.version > variables.version) {
-            alert(`App 最新版本是${res.body.version}!`)
+            alert(`App 有新版本：${res.body.version}`)
           } else {
             alert('您这是最新版本')
           }

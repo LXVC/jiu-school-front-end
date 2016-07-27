@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props, context) {
     super(props, context)
     // AsyncStorage.setItem('token', '11')
-    // AsyncStorage.clear()
+    AsyncStorage.clear()
   }
 
   render() {
