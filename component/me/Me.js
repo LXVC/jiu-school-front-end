@@ -3,6 +3,9 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import NavDefault from '../navs/NavDefault'
 import variables from '../variables'
+import Api from '../../netWork/api'
+
+import Change from './ChangePassWord'
 
 const list = [{
   icon: require('../../assets/like.png'),
@@ -21,7 +24,10 @@ const list = [{
 },{
   icon: require('../../assets/info-2.png'),
   name: '关于',
-  borderStyle: {borderBottomColor:'#fafafa'}
+  // borderStyle: {borderBottomColor:'#fafafa'}
+},{
+  icon: require('../../assets/info-2.png'),
+  name: '检查更新',
 }]
 
 export default class Me extends Component{
@@ -32,7 +38,7 @@ export default class Me extends Component{
   _renderItem() {
     return list.map((item, index) => {
       return (
-        <TouchableOpacity key={index}>
+        <TouchableOpacity key={index} onPress={() => {this._onClick(item.name)}}>
           <View style={[styles.item,item.marginStyle]}>
             <View style={[styles.container,item.borderStyle]}>
               <Image
@@ -47,6 +53,34 @@ export default class Me extends Component{
         </TouchableOpacity>
       )
     })
+  }
+
+  async _onClick(name) {
+    switch (name) {
+      case '修改密码':
+          this.props.toRoute({
+            name: name,
+            component: Change
+          })
+        break;
+      case '检查更新':
+        const api = new Api('/version/')
+        try {
+          let res = await api.get()
+          if (res.err) throw res.err
+          if (res.body.version > variables.version) {
+            alert(`App 最新版本是${res.body.version}!`)
+          } else {
+            alert('您这是最新版本')
+          }
+        } catch (e) {
+          alert('update error')
+        } finally {
+
+        }
+      default:
+
+    }
   }
 
   render() {

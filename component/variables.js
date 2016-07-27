@@ -7,6 +7,7 @@ export default {
   height,
   errorAuth: 'auth error',
   baseURI: 'http://192.168.1.5:8000/api/v1',
+  version: 1.0,
   tabName: [{
     name: '首页',
     img: require('../assets/HOME.png')
