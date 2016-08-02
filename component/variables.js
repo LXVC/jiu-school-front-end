@@ -1,12 +1,21 @@
 import {Dimensions, PixelRatio, AsyncStorage} from 'react-native'
 
-let {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
+
+const dev = false
+let baseURI
+
+if (dev) {
+  baseURI = 'http://192.168.1.5:8000/api/v1'
+} else {
+  baseURI = 'http://123.206.42.148:8000/api/v1'
+}
 
 export default {
   width,
   height,
+  baseURI,
   errorAuth: 'auth error',
-  baseURI: 'http://192.168.1.5:8000/api/v1',
   version: 1.0,
   tabName: [{
     name: '首页',

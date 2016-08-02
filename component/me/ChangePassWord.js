@@ -47,18 +47,21 @@ export default class Change extends Component{
         <Nav title={this.props.name} toBack={this.props.toBack}></Nav>
         <View style={{paddingLeft: 10, paddingRight: 10}}>
           <Jiro
+            password={true}
             label={'旧密码'}
             borderColor={'#ebebeb'}
             inputStyle={{ color: 'black' }}
             style={{flex:1}}
             onChangeText={(val) => {this.setState({oldPwd:val})}}/>
           <Jiro
+            password={true}
             label={'新密码'}
             borderColor={'#ebebeb'}
             inputStyle={{ color: 'black' }}
             style={{flex:1}}
             onChangeText={(val) => {this.setState({newPwd0:val})}}/>
           <Jiro
+            password={true}
             label={'新密码'}
             borderColor={'#ebebeb'}
             inputStyle={{ color: 'black' }}

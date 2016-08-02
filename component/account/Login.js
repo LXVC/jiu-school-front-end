@@ -22,7 +22,7 @@ export default class Login extends Component {
       this.setState({once: true})
       let api = new Api('/get-token/', false , {
         username: 'qzw',
-        password: 'qzw'
+        password: 'root'
       })
       try {
         let res = await api.post()
