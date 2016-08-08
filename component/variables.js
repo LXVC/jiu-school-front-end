@@ -2,13 +2,13 @@ import {Dimensions, PixelRatio, AsyncStorage} from 'react-native'
 
 const {width, height} = Dimensions.get('window')
 
-const dev = false
+const dev = true
 let baseURI
 
 if (dev) {
   baseURI = 'http://192.168.1.5:8000/api/v1'
 } else {
-  baseURI = 'http://123.206.42.148:8000/api/v1'
+  baseURI = 'http://123.207.165.109:8000/api/v1'
 }
 
 export default {
